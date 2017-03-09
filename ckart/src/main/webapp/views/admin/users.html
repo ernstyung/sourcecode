@@ -1,0 +1,204 @@
+<div class="content full-height">
+	<div class="row full-height">
+		<div class="col-md-12 full-height overflow-auto">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<h3 class="box-title">Search</h3>
+				</div>
+				<div class="box-body">
+					<div class="row">
+						<form class="col-md-12 form-inline" role="form" name="searchForm" novalidate>
+							<div class="form-group">
+								<input type="text" class="form-control input-sm" placeholder="Search" data-ng-model="params.q">
+							</div>
+							<div class="form-group">
+								<select class="form-control input-sm" data-ng-options="item.value as item.label for item in uploadStatus" data-ng-model="params.userQuery.uploadStatus"></select>
+							</div>
+							<div class="form-group">
+								<button type="submit" class="btn btn-primary btn-flat btn-sm" data-ng-click="search()" data-ng-class="{'disabled':searchForm.$invalid}">Search</button>
+								<button type="reset" class="btn btn-warning btn-flat btn-sm" data-ng-click="reset();getUsers()">Reset</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="row" data-ng-show="data.userDetails.users.length > 0">
+				<div class="col-md-4">
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<h3 class="box-title">ATCs</h3>
+							<a class="pull-right pointer" data-ng-click="flipView('atc')" title="Flip View">
+								<span class="fa" data-ng-class="!atcsTable ? 'fa-table' : 'fa-pie-chart'"></span>
+							</a>
+						</div>
+						<div class="box-body">
+							<div class="overflow-auto" style="height: 200px;" data-ng-show="atcsTable">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Name</th>
+											<th class="text-right">Count</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr data-ng-repeat="item in data.userDetails.atcs">
+											<td><a class="pointer" data-ng-click="filter('atc', item)">{{item.name}}</a></td>
+											<td class="text-right">{{item.y}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div data-high-chart data-data="atcData" data-key="'atc'" style="height: 200px; width:200px; margin: auto;" data-ng-hide="atcsTable"></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<h3 class="box-title">Segments</h3>
+							<a class="pull-right pointer" data-ng-click="flipView('segment')" title="Flip View">
+								<span class="fa" data-ng-class="!segmentsTable ? 'fa-table' : 'fa-pie-chart'"></span>
+							</a>
+						</div>
+						<div class="box-body">
+							<div class="overflow-auto" style="height: 200px;" data-ng-show="segmentsTable">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Name</th>
+											<th class="text-right">Count</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr data-ng-repeat="item in data.userDetails.segments">
+											<td><a class="pointer" data-ng-click="filter('segment', item)">{{item.name}}</a></td>
+											<td class="text-right">{{item.y}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div data-high-chart data-data="segmentData" data-key="'segment'" style="height: 200px; width:200px; margin: auto;" data-ng-hide="segmentsTable"></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<h3 class="box-title">Accounts</h3>
+							<a class="pull-right pointer" data-ng-click="flipView('account')" title="Flip View">
+								<span class="fa" data-ng-class="!accountsTable ? 'fa-table' : 'fa-pie-chart'"></span>
+							</a>
+						</div>
+						<div class="box-body">
+							<div class="overflow-auto" style="height: 200px;" data-ng-show="accountsTable">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Name</th>
+											<th class="text-right">Count</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr data-ng-repeat="item in data.userDetails.accounts">
+											<td><a class="pointer" data-ng-click="filter('account', item)">{{item.name}}</a></td>
+											<td class="text-right">{{item.y}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div data-high-chart data-data="accountData" data-key="'account'" style="height: 200px; width:200px; margin: auto;" data-ng-hide="accountsTable"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="box box-primary">
+				<div class="box-header">
+					<h3 class="box-title">Users</h3>
+					<div class="pull-right">
+						<a data-ng-href="#/admin/user/add" class="btn btn-primary btn-flat btn-xs" title="Add External User">Add External User</a>
+						<button class="btn btn-primary btn-flat btn-xs" title="Download Profile" data-downloader data-username="'vResumeSampleExcel'">Sample Excel</button>
+						<span data-uploader>
+							 <button type="button" class="trigger btn btn-primary btn-flat btn-xs" title="Update User Details">Import</button>
+							 <input type="file" accept=".xlsx" onchange="angular.element(this).scope().updateUserInfo(this)" data-ng-hide="true" />
+						 </span>
+						<span data-uploader>
+							 <button type="button" class="trigger btn btn-primary btn-flat btn-xs" title="Upload Resume">Bulk Upload</button>
+							 <input type="file" multiple="multiple" accept=".docx" onchange="angular.element(this).scope().bulkResumeUpload(this)" data-ng-hide="true" />
+						 </span>
+					</div>
+				</div>
+				<div class="box-body">
+					<table class="table table-bordered table-hover">
+						<thead>
+							<tr role="row">
+								<th class="pointer text-left" data-ng-click="sort('fullName')">Full Name
+								 	<span class="fa sort-icon pull-right" data-ng-show="params.sortKey=='fullName'" data-ng-class="{'fa-sort-asc':reverse,'fa-sort-desc':!reverse}"></span>
+								</th>
+								<th class="pointer text-left" data-ng-click="sort('empId')">Employee ID
+								 	<span class="fa sort-icon pull-right" data-ng-show="params.sortKey=='empId'" data-ng-class="{'fa-sort-asc':reverse,'fa-sort-desc':!reverse}"></span>
+								</th>
+								<th class="pointer text-left" data-ng-click="sort('emailId')">E-mail ID 
+									<span class="fa sort-icon pull-right" data-ng-show="params.sortKey=='emailId'" data-ng-class="{'fa-sort-asc':reverse,'fa-sort-desc':!reverse}"></span>
+								</th>
+								<th class="pointer text-center" data-ng-click="sort('uploadStatus')">Upload Status
+								 	<span class="fa sort-icon pull-right" data-ng-show="params.sortKey=='uploadStatus'" data-ng-class="{'fa-sort-asc':reverse,'fa-sort-desc':!reverse}"></span>
+								</th>
+								<th class="pointer text-center" data-ng-click="sort('modifiedDate')">Modified Date 
+									<span class="fa sort-icon pull-right" data-ng-show="params.sortKey=='modifiedDate'" data-ng-class="{'fa-sort-asc':reverse,'fa-sort-desc':!reverse}"></span>
+								</th>
+								<th class="text-center">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr data-ng-if="!data.userDetails.users.length">
+								<td class="watermark text-center" colspan="6">No Data Available</td>
+							</tr>
+							<tr class="odd" data-ng-repeat="item in data.userDetails.users" data-ng-class="{'selected':item.checked}">
+								<td class=" text-left "><a data-ng-click="viewUser(item)">{{item.fullName}}</a></td>
+								<td class="text-left">{{item.empId}}</td>
+								<td class="text-left">{{item.emailId}}</td>
+								<!-- <p style="width: 250px;text-overflow: ellipsis;overflow: hidden;" title="{{item.emailId}}"> -->{{item.emailId}}</p> 
+<!-- 								<td class=" widget-user-username " title ="{{item.emailId}}" style="width:10px;white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">{{item.emailId}}</td>
+ --> 								<td class="text-center">
+									<span class="fa fa-check" data-ng-if="item.uploadStatus"></span>
+									<span class="fa fa-remove" data-ng-if="!item.uploadStatus"></span>
+								</td>
+								<td class="text-center">{{item.modifiedDate | date:'MMM dd,yyyy HH:mm:ss'}}</td>
+						        <td class="text-center">
+									<button class="btn-link" title="Edit User Role" data-ng-click="editUser(item.id)" data-ng-disabled="item.userRoleId==3" data-ng-class="{'not-allowed':item.userRoleId == 3}"><span class="fa fa-pencil-square-o"></span></button>
+									<span data-uploader>
+										<button class="trigger btn-link" title="Upload Resume"><span title="Upload Profile" class="fa fa-upload"></span></button>
+										<input type="file" name="{{item.userName}}" onchange="angular.element(this).scope().singleResumeUpload(this)" data-ng-hide="true" accept=".docx"/>
+									</span>
+									<button class="btn-link" title="Download Profile" data-downloader data-username="item.userName" data-ng-disabled="!item.uploadStatus" data-ng-class="{'not-allowed':!item.uploadStatus}"><span class="fa fa-download"></span></button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="box-footer" data-ng-show="data.userDetails.users.length > 0">
+					<div class="col-sm-5">
+						<form class="form-inline">
+  							<div class="form-group">
+								<label class="control-label">Showing Page {{params.pageNo}} of {{pageCount}}&nbsp;</label> 
+								<select class="form-control input-sm" data-ng-options="item as item for item in usersPerPage" data-ng-model="params.limit" data-ng-change="getUsers()"></select> 
+								<label class="control-label">Users per page</label>
+							</div>
+						</form>
+					</div>
+					<div class="col-sm-7">
+						<div>
+							<ul class="pagination" style="float: right; margin: 0;">
+								<li data-ng-class="{'disabled':params.pageNo == 1}"><a class="paginateButtons" data-ng-click="changePageNo('first')"><span class="fa fa-angle-double-left"></span></a></li>
+								<li data-ng-class="{'disabled':params.pageNo == 1}"><a	class="paginateButtons" data-ng-click="changePageNo('previous')"><span	class="fa fa-angle-left"></span></a></li>
+								<li><a>{{params.pageNo}}</a></li>
+								<li data-ng-class="{'disabled':params.pageNo == pageCount}"><a class="paginateButtons" data-ng-click="changePageNo('next')"><span class="fa fa-angle-right"></span></a></li>
+								<li data-ng-class="{'disabled':params.pageNo == pageCount}"><a class="paginateButtons" data-ng-click="changePageNo('last')"><span class="fa fa-angle-double-right"></span></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

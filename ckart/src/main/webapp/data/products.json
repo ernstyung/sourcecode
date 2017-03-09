@@ -1,0 +1,71 @@
+{"products": [
+	{
+		"id": 1,
+		"title": "Armani T-Shirt",
+		"image": "../data/images/1.png",
+		"price": 70
+	},
+	{
+		"id": 2,
+		"title": "Nike T-Shirt",
+		"image": "../data/images/2.jpg",
+		"price": 300
+	},
+	{
+		"id": 3,
+		"title": "Bulls Hoddie",
+		"image": "../data/images/3.png",
+		"price": 1000
+	},
+	{
+		"id": 4,
+		"title": "Boots",
+		"image": "../data/images/4.png",
+		"price": 100
+	},
+	{
+		"id": 5,
+		"title": "Running Shoes",
+		"image": "../data/images/5.jpg",
+		"price": 1700
+	},
+	{
+		"id": 6,
+		"title": "Tommy Hat",
+		"image": "../data/images/6.png",
+		"price": 440
+	},
+	{
+		"id": 7,
+		"title": "Gym Shorts",
+		"image": "../data/images/7.jpg",
+		"price": 4
+	},
+	{
+		"id": 8,
+		"title": "Ed Shorts",
+		"image": "../data/images/8.png",
+		"price": 500
+	},
+	{
+		"id": 9,
+		"title": "Levis Denim",
+		"image": "../data/images/9.png",
+		"price": 6
+	},{
+		"id": 10,
+		"title": "Lee Denim",
+		"image": "../data/images/10.png",
+		"price": 61
+	},{
+		"id": 11,
+		"title": "IT Shirt",
+		"image": "../data/images/11.png",
+		"price": 11
+	},{
+		"id": 12,
+		"title": "UCB Shirt",
+		"image": "../data/images/12.png",
+		"price": 213
+	}
+]}

@@ -1,0 +1,39 @@
+<section class="content-header">
+	<h1 class="text-center">Add External User</h1>
+</section>
+<div class="content">
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+			<form name="addForm" novalidate>
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title">User Details</h3>
+					</div>
+					<div class="box-body">
+						<div class="form-group" data-ng-class="{ 'has-error' : addForm.fullname.$invalid && !addForm.fullname.$pristine && addForm.fullname.$touched }">
+							<label for="fullName">Full Name</label> 
+							<input type="text" id="fullName" name="fullname" class="form-control" placeholder="Enter Full Name" data-ng-model="user.fullName" data-ng-minlength="3" data-ng-maxlength="30" data-ng-required="true" data-letters-only>
+							<p data-ng-show="addForm.fullname.$error.minlength  && addForm.fullname.$touched" class="help-block">Name is too short.</p>
+							<p data-ng-show="addForm.fullname.$error.maxlength && addForm.fullname.$touched" class="help-block">Name is too long.</p>
+						</div>
+						<div class="form-group" data-ng-class="{ 'has-error' : addForm.email.$invalid && !addForm.email.$pristine && addForm.email.$touched }">
+							<label for="email">Email</label> 
+							<input type="email" id="email" name="email" class="form-control" placeholder="Enter Email" data-ng-maxlength="50" data-ng-pattern= "/^[a-zA-Z]+[a-zA-Z0-9._]+@[a-z]+\.[a-z.]{2,5}$/" data-ng-keypress="isEmailUnique=true" data-ng-model="user.emailId" data-ng-required="true">
+                           <p data-ng-show="addForm.email.$error.pattern && !addForm.email.$pristine && isEmailUnique && addForm.email.$touched " class="help-block">Enter a valid email.</p>
+ 							<p data-ng-show="addForm.email.$error.maxlength && addForm.email.$touched" class="help-block">Email is too long.</p>
+ 							<p class="help-block" data-ng-hide="isUserUnique">Email Id already exists</p>
+						</div>
+					</div>
+					<!-- /.box-body -->
+					<div class="box-footer">
+						<a class="btn btn-danger btn-flat btn-sm" data-ng-href="#/admin/users">Cancel</a>
+						<span class="pull-right">
+							<button type="reset" class="btn btn-warning btn-flat btn-sm" data-ng-click="reset(); addForm.$setPristine();">Reset</button>
+							<button type="submit" class="btn btn-primary btn-flat btn-sm"  data-ng-disabled="addForm.$invalid" data-ng-click="saveUser()" data-ng-class="{'disabled':addForm.$invalid}">Save</button>
+						</span>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

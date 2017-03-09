@@ -1,0 +1,178 @@
+<div class="content full-height overflow-auto">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<h3 class="box-title">Search Profile</h3>
+				</div>
+				<div class="box-body">
+					<div class="row">
+						<form class="col-md-12 form-inline" role="form" name="searchForm" novalidate>
+							<div class="form-group">
+								<input type="text" class="form-control input-sm" placeholder="Skills" data-ng-model="skills">
+								<input type="text" class="form-control input-sm" placeholder="Client" data-ng-model="client">
+							</div>
+							<div class="form-group">
+								<button type="submit" class="btn btn-primary btn-flat btn-sm" data-ng-click="search()" data-ng-disabled="searchForm.$invalid" data-ng-class="{'disabled':searchForm.$invalid}">Search</button>
+								<button type="reset" class="btn btn-warning btn-flat btn-sm" data-ng-click="reset()">Reset</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4" data-ng-if="data.profileDetails.atcs.length != 0">
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<h3 class="box-title">ATCs</h3>
+							<a class="pull-right pointer" data-ng-click="flipView('atc')" title="Flip View">
+								<span class="fa" data-ng-class="!atcsTable ? 'fa-table' : 'fa-pie-chart'"></span>
+							</a>
+						</div>
+						<div class="box-body">
+							<div class="overflow-auto" style="height: 225px;" data-ng-show="atcsTable">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Name</th>
+											<th class="text-right">Count</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr data-ng-repeat="item in data.profileDetails.atcs">
+											<td><a class="pointer" data-ng-click="filter('atc', item)">{{item.name}}</a></td>
+											<td class="text-right">{{item.y}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div data-high-chart data-data="atcData" data-key="'atc'" style="height: 225px;" data-ng-hide="atcsTable"></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4" data-ng-if="data.profileDetails.segments.length != 0">
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<h3 class="box-title">Segments</h3>
+							<a class="pull-right pointer" data-ng-click="flipView('segment')" title="Flip View">
+								<span class="fa" data-ng-class="!segmentsTable ? 'fa-table' : 'fa-pie-chart'"></span>
+							</a>
+						</div>
+						<div class="box-body">
+							<div class="overflow-auto" style="height: 225px;" data-ng-show="segmentsTable">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Name</th>
+											<th class="text-right">Count</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr data-ng-repeat="item in data.profileDetails.segments">
+											<td><a class="pointer" data-ng-click="filter('segment', item)">{{item.name}}</a></td>
+											<td class="text-right">{{item.y}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div data-high-chart data-data="segmentData" data-key="'segment'" style="height: 225px;" data-ng-hide="segmentsTable"></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4" data-ng-if="data.profileDetails.accounts.length != 0">
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<h3 class="box-title">Accounts</h3>
+							<a class="pull-right pointer" data-ng-click="flipView('account')" title="Flip View">
+								<span class="fa" data-ng-class="!accountsTable ? 'fa-table' : 'fa-pie-chart'"></span>
+							</a>
+						</div>
+						<div class="box-body">
+							<div class="overflow-auto" style="height: 225px;" data-ng-show="accountsTable">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Name</th>
+											<th class="text-right">Count</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr data-ng-repeat="item in data.profileDetails.accounts">
+											<td><a class="pointer" data-ng-click="filter('account', item)">{{item.name}}</a></td>
+											<td class="text-right">{{item.y}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div data-high-chart data-data="accountData" data-key="'account'" style="height: 225px;" data-ng-hide="accountsTable"></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="box box-primary">
+						<div class="box-header">
+							<h3 class="box-title">Filtered Profiles</h3>
+							<div class="form-inline pull-right" data-ng-if="data.profileDetails.profiles.length != 0">
+								<label>Sort By:</label>
+								<select class="form-control input-sm" data-ng-options="item as item for item in sortOptions" data-ng-model="params.sortKey" data-ng-change="sort()"></select>
+							</div>
+						</div>
+						<div class="box-body">
+							<div class="text-center" data-ng-if="data.profileDetails.profiles.length == 0">No Results Found.</div>
+							<div class="row" data-ng-show="data.profileDetails.profiles.length != 0">
+								<div class="col-md-4" data-ng-repeat="item in data.profileDetails.profiles">
+									<div class="box box-widget widget-user">
+										<div class="widget-user-header bg-aqua">
+											<h3 class="widget-user-username" title ="{{item.fullname}}" style="width: 150px;white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">{{item.fullname}}</h3>
+											<h5 class="widget-user-desc" title ="{{item.designation}}" style="width: 150px;white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">{{item.designation}}</h5><div class="pull-right">
+											<button class="badge bg-green btn-link" data-ng-click="getProfile(item)"><span title="View Profile" class="fa fa-eye"></span></button>
+               								<button class="badge bg-green btn-link" data-downloader data-username="item.username"><span title="Download Profile" class="fa fa-download"></span></button></div>
+										</div>
+										<div class="widget-user-image">
+											<img class="img-circle" data-ng-src="{{item.imgurl}}">
+										</div>
+										<div class="box-footer">
+											<ul class="nav nav-stacked">
+							                    <li>
+													<span>Over All Experience</span> 
+													<span class="pull-right badge bg-default">{{(item.experience/12).toFixed(1) || 0}} Y</span>
+												</li>
+							                    <li data-ng-repeat="subItem in item.skills">
+													<span>{{subItem.name}}</span> 
+													<span class="pull-right badge bg-default">{{(subItem.duration/12).toFixed(1) || 0}} Y</span>
+												</li>
+						                	</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row" data-ng-show="data.profileDetails.profiles.length != 0">
+								<div class="col-sm-5">
+									<form class="form-inline">
+			  							<div class="form-group">
+											<label class="control-label">Showing Page {{params.pageNo}} of {{pageCount}}&nbsp;</label> 
+											<select class="form-control input-sm" data-ng-options="item as item for item in profilesPerPage" data-ng-model="params.limit" data-ng-change="getProfiles()"></select> 
+											<label class="control-label">Profiles per page</label>
+										</div>
+									</form>
+								</div>
+								<div class="col-sm-7">
+									<div>
+										<ul class="pagination" style="float: right; margin: 0;">
+											<li data-ng-class="{'disabled':params.pageNo == 1}"><a class="paginateButtons" data-ng-click="changePageNo('first')"><span class="fa fa-angle-double-left"></span></a></li>
+											<li data-ng-class="{'disabled':params.pageNo == 1}"><a	class="paginateButtons" data-ng-click="changePageNo('previous')"><span	class="fa fa-angle-left"></span></a></li>
+											<li><a>{{params.pageNo}}</a></li>
+											<li data-ng-class="{'disabled':params.pageNo == pageCount}"><a class="paginateButtons" data-ng-click="changePageNo('next')"><span class="fa fa-angle-right"></span></a></li>
+											<li data-ng-class="{'disabled':params.pageNo == pageCount}"><a class="paginateButtons" data-ng-click="changePageNo('last')"><span class="fa fa-angle-double-right"></span></a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

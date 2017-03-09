@@ -1,0 +1,52 @@
+<div class="modal-header">
+	<button type="button" class="close" data-ng-click="close('modalInstance')">
+		<span class="fa fa-times" data-aria-hidden="true"></span>
+		<span class="sr-only">Close</span>
+	</button>
+	<h4 class="modal-title">{{data.title}}</h4>
+</div>
+<div class="modal-body">
+	<div class="box box-primary">
+		<div class="box-header with-border">
+		  	<h3 class="box-title">{{data.body.fullname}}</h3>
+		</div>
+		<div class="box-body">
+			<strong><span class="fa fa-shield"></span> Core Competencies</strong>
+			<p class="text-muted" data-ng-repeat="item in data.body.corecompetencies">{{item}}</p>
+			<hr>
+			<strong><span class="fa fa-graduation-cap"></span> Educational Qualifications</strong>
+			<p class="text-muted" data-ng-repeat="item in data.body.qualifications">{{item}}</p>
+			<hr>
+			<strong><span class="fa fa-th-list"></span> Projects (<span>{{data.body.projects.length}}</span>)</strong>
+			<div class="row">
+				<div class="col-md-12" data-ng-repeat="item in data.body.projects">
+					<div class="box box-default box-solid">
+						<div class="box-header with-border">
+							<h3 class="box-title">{{item.name}}</h3>
+						</div>
+						<div class="box-body">
+							<ul class="nav nav-stacked">
+								<li data-ng-if="item.role">
+									<b><span> Role</span> </b>
+									<span class="pull-right">{{item.role}}</span>
+								</li>
+								<li data-ng-if="item.duration">
+									<b><span> Duration</span> </b>
+									<span class="pull-right">{{item.duration}}</span>
+								</li>
+								<li data-ng-if="item.client">
+									<b><span> Client</span> </b>
+									<span class="pull-right">{{item.client}}</span>
+								</li>
+								<li data-ng-if="item.technology"> 
+									<b><span> Technology</span></b> 
+									<span class="pull-right">{{item.technology}}</span>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

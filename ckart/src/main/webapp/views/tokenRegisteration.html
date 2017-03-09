@@ -1,0 +1,55 @@
+<form name="tokenForm" data-abide>
+
+	<div ng-if="processing" us-spinner></div>
+
+	<fieldset>
+		<legend>Register Device For Token</legend>
+
+		<div class="row">
+
+			<label class="large-6 columns">Bank Account Number
+				<input ng-model="accountNumber" type="text" placeholder="Account Number">
+			</label>
+
+			<label class="large-6 columns">Bank Name
+				<input ng-model="bankName" type="text" placeholder="Bank Name">
+			</label>
+
+			<label class="large-6 columns">Phone Number
+				<input ng-model="phoneNumber" type="number" placeholder="Phone Number">
+			</label>
+
+			<label class="large-6 columns">Email Address
+				<input ng-model="emailAddress" type="text" placeholder="emailAddress">
+			</label>
+		</div>
+	</fieldset>
+
+	<fieldset>
+		<legend>Token Params</legend>
+
+		<div class="row">
+			<label class="large-4 columns">Amount Limit
+				<input ng-model="amountLimit" type="number" placeholder="Amount Limit">
+			</label>
+
+			<label class="large-4 columns">Expiry
+				<input ng-model="expiry" type="date" placeholder="Date">
+			</label>
+
+			<label class="large-4 columns">Per Day Transactions Allowed
+				<input ng-model="transactionLimit" type="number" placeholder="Per Day Transactions">
+			</label>
+		</div>
+	</fieldset>
+
+		<div class="row">
+			<div class="large-12 columns large-centered">
+				<label style="margin-left: 300px;">
+					<button style="width:206px" ng-click="createToken()">Create Smart Token</button>
+					<button style="width:206px" ng-click="cancel()">Cancel</button>
+				</label>
+			</div>
+		</div>
+
+</form>

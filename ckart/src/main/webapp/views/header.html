@@ -1,0 +1,31 @@
+<header class="main-header" style="height: 50px;" data-ng-controller="loginController">
+		<a class="logo" style="width: 100%; background: #2874f0;" data-ng-if="!isLoggedIn"> <span class="logo-lg"><img
+				class="bank-logo" src="../css/img/cart_logo.png"> Cloth Kart</span>
+		</a>
+		<a class="logo" style="width: 50%; background: #2874f0;" data-ng-if="isLoggedIn"> <span class="logo-lg"><img
+				class="bank-logo" src="../css/img/cart_logo.png"> Cloth Kart</span>
+		</a>
+		<nav class="navbar navbar-static-top" role="navigation" data-ng-if="isLoggedIn" style="margin-left: 50%; background: #2874f0;">
+			<div class="navbar-custom-menu">
+			<ul class="nav navbar-nav">
+				<li class="dropdown user user-menu">
+					<a class="dropdown-toggle pointer" data-toggle="dropdown" aria-expanded="false"> 
+						<img data-ng-src="../css/img/avatar.png" class="user-image"> 
+						<span class="hidden-xs">{{shoppingDetails.userDetails.billingFirstName}}</span>
+					</a>
+					<ul class="dropdown-menu">
+						<li class="user-header">
+							<img data-ng-src="../css/img/avatar.png" class="img-circle">
+							<p>{{shoppingDetails.userDetails.billingFirstName}}  {{shoppingDetails.userDetails.billingLastName}}</p>
+						</li>
+						<li class="user-footer">
+							<form class="form-inline pull-right" role="form">
+								<button class="btn btn-default btn-flat" data-ng-click="logout()">Sign out</button>
+							</form>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		</nav>
+	</header>

@@ -1,0 +1,29 @@
+<div class="wrapper overflow-auto" data-ng-controller="productController">
+	<ul class="product-list">
+		<li data-ng-repeat="product in products" class="col-sm-4 align-left">
+			<figure>
+				<div class="col-sm-12 container">
+					<img data-ng-src="{{product.image}}" alt="{{product.title}}">
+				</div>
+				<figcaption>
+					<h3>{{product.title}}, SEK {{product.price}}</h3>
+					<button data-ng-click="addToCart(product);">Add to cart</button>
+				</figcaption>
+			</figure>
+		</li>
+	</ul>
+	<div ng-if="cart.length != 0" class="shopping-cart" ng-click="toggleShowCart()">
+		<div> Cart Details <span class="glyphicon glyphicon-chevron-up pull-right" aria-hidden="true"></span></div>
+	</div>
+	<div ng-if="cart.length != 0">
+		<div ng-if="toggleCart" class="shopping-cart">
+			<div class="cart-item th radius" ng-repeat="product in cart">
+				<a class="itemCancel" id="itemCancel" ng-click="removeProduct($index)"></a> 
+				<img ng-src="{{product.image}}" title="{{product.title}}" /> 
+				<span class="badge" ng-show="product.quantity > 1"> x{{product.quantity}} </span>
+			</div>
+	
+			<button ng-click="checkout();">Checkout</button>
+		</div>
+	</div>
+</div>
